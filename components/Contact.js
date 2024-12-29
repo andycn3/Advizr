@@ -6,11 +6,22 @@ function Contact() {
         message: ''
     });
 
+    const [isSubmitted, setIsSubmitted] = React.useState(false); // Controls pop-up visibility
+
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
             // Handle form submission
             console.log('Form submitted:', formData);
+
+            // Show the "Form Submitted" pop-up
+            setIsSubmitted(true);
+
+            // Hide the pop-up after 5 seconds
+            setTimeout(() => {
+                setIsSubmitted(false);
+            }, 5000);
+
             // Reset form
             setFormData({ name: '', email: '', company: '', message: '' });
         } catch (error) {
@@ -96,6 +107,16 @@ function Contact() {
                             </button>
                         </div>
                     </form>
+
+                    {/* Pop-Up Message */}
+                    {isSubmitted && (
+                        <div
+                            className="fixed inset-x-0 top-10 mx-auto w-max p-4 text-center text-black bg-green-500 rounded-lg shadow-lg z-50"
+                            style={{ zIndex: 9999 }}
+                        >
+                            Form Submitted Successfully!
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
